@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "testing.yml"
+# Estimated savings: ~2 min/run
+#
 name: GitHub Actions Linux Testing
 
 on:
@@ -10,6 +15,10 @@ on:
   schedule:
   - cron: '54 19 * * SUN' # weekly at a "random" time
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 
